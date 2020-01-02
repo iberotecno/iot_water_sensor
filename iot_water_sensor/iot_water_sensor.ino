@@ -2,38 +2,39 @@
 #include <WiFiClientSecure.h>
 #include <UniversalTelegramBot.h>
 #include <SimpleTimer.h>
+
+// data to configure by user
 #define CHAT_ID "Your chat ID"
+#define BOTtoken "Your Bot Token"  // your Bot Token (Get from Botfather)
+char ssid[] = "Your Wifi name";     // your network SSID (name)
+char password[] = "Your Wifi Pass"; // your network key
+int horas = 1; // horas cada cuanto reiniciamos por seguridad
+
+// variables definitions and initializations
 int flag = 0;
 int acu = 0;
-int horas = 1; // horas cada cuanto reiniciamos por seguridad
 unsigned long previousMillis = 0;
 const long interval = 1500;
 SimpleTimer timer;
 const int waterSensor = 33;
-
-// Initialize Wifi connection to the router
-char ssid[] = "Your Wifi name";     // your network SSID (name)
-char password[] = "Your Wifi Pass"; // your network key
-
-// Initialize Telegram BOT
-#define BOTtoken "Your Bot Token"  // your Bot Token (Get from Botfather)
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 int Bot_mtbs = 1000; //mean time between scan messages
 long Bot_lasttime;   //last time messages' scan has been done
 
+// restart function definition
 void reinicio() {
   ESP.restart();
 }
 
 void setup() {
   Serial.begin(115200);
-  timer.setInterval(horas * 3600000, reinicio);
-}
+  timer.setInterval(horas * 3600000, reinicio); // call to restart function if configured time is reached. It improves stability.
+  
 void loop() {
   timer.run();
   int valor = analogRead(waterSensor);
-  if (valor >= 5) {
+  if (valor >= 5) { // call alert function if water is detected
     if (flag == 0) {
       alerta();
     }
@@ -43,7 +44,7 @@ void loop() {
   delay(100);
 }
 
-void alerta() {
+void alerta() { //alert function
   flag = 1;
   Serial.print("Connecting Wifi: ");
   Serial.println(ssid);
@@ -66,6 +67,6 @@ void alerta() {
   String message = "Agua detectada";
   if (bot.sendMessage(CHAT_ID, message, "Markdown")) {
     Serial.println("TELEGRAM Successfully sent");
-    WiFi.mode(WIFI_OFF); //apagar wifi par ahorrar bateria
+    WiFi.mode(WIFI_OFF); //wifi goes off to save power
   }
 }
