@@ -1,7 +1,7 @@
 IoT Water Sensor
 =======
 
-More info :https://iberotecno.com/tienda/kits-de-arduino/22-41-detector-de-fugas-de-agua-con-aviso-al-movil.html#/29-servicio_de_montaje_5-no_deseo_montar_el_dispositivo_por_mi_mismo
+More info :https://iberotecno.com/tienda/kits-de-arduino/22-41-detector-de-fugas-de-agua-con-aviso-al-movil.htm
 
 Telegram water sensor for ESP32.
 
