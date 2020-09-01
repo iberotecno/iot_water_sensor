@@ -1,6 +1,8 @@
 IoT Water Sensor
 =======
 
+More info: https://iberotecno.com/tienda/kits-de-arduino/22-41-detector-de-fugas-de-agua-con-aviso-al-movil.html
+
 Telegram water sensor for ESP32.
 
 This example sends a telegram message from te ESP32 board to a cell phone with Telegram App installed when a water leakage is detected by the sensor. Youn only need to copy the lib content to your arduino libraryes folder and run the program that you find at src folder.
